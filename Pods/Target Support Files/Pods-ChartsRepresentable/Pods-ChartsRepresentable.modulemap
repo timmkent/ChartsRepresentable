@@ -1,0 +1,6 @@
+framework module Pods_ChartsRepresentable {
+  umbrella header "Pods-ChartsRepresentable-umbrella.h"
+
+  export *
+  module * { export * }
+}
