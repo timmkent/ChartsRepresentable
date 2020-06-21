@@ -8,10 +8,10 @@
 
 // AUFGABE: bringe die Tagesanzeige ans laufen. Da gibt es referenmzen zu im Internate.
 
-
+// mache ein install 
 
 import SwiftUI
-
+import Charts
 
 struct BarChartViewSwiftUI:UIViewRepresentable {
     
@@ -31,7 +31,7 @@ struct BarChartViewSwiftUI:UIViewRepresentable {
         bcxv.xAxis.labelCount = 20
         
         let xaxis = bcxv.xAxis
-        xaxis.valueFormatter = context.coordinator
+        xaxis.valueFormatter = TimestampAxisValueFormatter()
         xaxis.labelPosition = .bottom
         
         return bcxv
@@ -85,3 +85,27 @@ struct BarChartViewSwiftUI:UIViewRepresentable {
 }
 
 
+// 1592647740
+
+func generateEpochExampleData() -> [Double] {
+    var results = [Double]()
+    for i in 1...20 {
+        let oneDaySeconds = Double(86400)
+        results.append(oneDaySeconds*Double(i))
+    }
+    return results
+}
+
+class TimestampAxisValueFormatter: NSObject, IAxisValueFormatter {
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        print("Converting \(value) ...")
+        let df = DateFormatter()
+         let date = Date(timeIntervalSince1970: value)
+         df.dateFormat = "dd/MM"
+         let weekday = Calendar.current.component(.weekday, from: date)
+         let weekdayShort = df.shortWeekdaySymbols[weekday - 1]
+         let dateString = df.string(from: date)
+         let string = "\(weekdayShort)\n\(dateString)"
+         return string
+    }
+}

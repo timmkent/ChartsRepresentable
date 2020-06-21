@@ -20,5 +20,85 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "16433569-AF6B-4CC5-9A66-9F2877129E4B"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChartsRepresentable/ChartDataService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "82"
+            endingLineNumber = "82"
+            landmarkName = "getImpressionsMB(completion:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "93F826A6-48B9-4E74-9C1D-651D2EA5B84A"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChartsRepresentable/ContentView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "body"
+            landmarkType = "24">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4EE22982-A6DE-4971-8274-ADAA17A35D49"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ChartsRepresentable/ChartDataService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "getImpressionsMB(completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4EE22982-A6DE-4971-8274-ADAA17A35D49 - 6a8570b97d2caaf"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "static ChartsRepresentable.ChartDataService.getImpressionsMB(completion: (Charts.BarChartData) -&gt; ()) -&gt; ()"
+                  moduleName = "ChartsRepresentable"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/chartsrepresentable/ChartsRepresentable/ChartDataService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "78"
+                  endingLineNumber = "78"
+                  offsetFromSymbolStart = "736">
+               </Location>
+               <Location
+                  uuid = "4EE22982-A6DE-4971-8274-ADAA17A35D49 - 56e93fc2aaf7dc87"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRDataSnapshot) -&gt; () in static ChartsRepresentable.ChartDataService.getImpressionsMB(completion: (Charts.BarChartData) -&gt; ()) -&gt; ()"
+                  moduleName = "ChartsRepresentable"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/marcfelden/Documents/chartsrepresentable/ChartsRepresentable/ChartDataService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "76"
+                  endingLineNumber = "76"
+                  offsetFromSymbolStart = "300">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

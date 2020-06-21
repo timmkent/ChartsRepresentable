@@ -8,6 +8,7 @@ target 'ChartsRepresentable' do
   # Pods for ChartsRepresentable
 pod 'Firebase/Database'
 pod 'Firebase/Storage'
+pod 'Charts'
   target 'ChartsRepresentableTests' do
     inherit! :search_paths
     # Pods for testing
