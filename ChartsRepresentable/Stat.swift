@@ -28,6 +28,7 @@ struct StatData:Codable {
     var profile_created:Double?
     var profileratio:Double?
     var iappratio:Double?
+    var eurlast30:Double?
 }
 struct Stat:Codable {
     var CA:StatData
@@ -36,3 +37,9 @@ struct Stat:Codable {
     var SW:StatData
 }
 
+struct StatConversion:Codable {
+    var CA:StatData?
+    var MB:StatData?
+    var NB:StatData?
+    var SW:StatData?
+}

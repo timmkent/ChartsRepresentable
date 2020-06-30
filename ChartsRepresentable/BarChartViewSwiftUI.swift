@@ -16,7 +16,7 @@ import Charts
 struct BarChartViewSwiftUI:UIViewRepresentable {
     
     @Binding var chartData:BarChartData
-    @Binding var dateStrings:[String]
+    var labelsCount:Int
     
     func makeUIView(context: Context) -> BarChartView {
         let bcxv = BarChartView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
@@ -27,11 +27,11 @@ struct BarChartViewSwiftUI:UIViewRepresentable {
         bcxv.barData?.dataSets.first?.drawValuesEnabled = true
         bcxv.barData?.dataSets.first?.valueFormatter = LargeValueFormatter()
         
-        bcxv.animate(yAxisDuration: 3)
-        bcxv.xAxis.labelCount = 20
+        bcxv.animate(yAxisDuration: 1)
+        bcxv.xAxis.labelCount = labelsCount
         
         let xaxis = bcxv.xAxis
-        xaxis.valueFormatter = TimestampAxisValueFormatter()
+        xaxis.valueFormatter = TimestampAxisValueFormatter()//ChartXAxisFormatter() //TimestampAxisValueFormatter()
         xaxis.labelPosition = .bottom
         
         return bcxv
@@ -43,9 +43,9 @@ struct BarChartViewSwiftUI:UIViewRepresentable {
     }
     
     
-    class Coordinator : NSObject, IAxisValueFormatter, ObservableObject {
+    class Coordinator : NSObject, ObservableObject {
         
-        // todo: wir brauchen wahrscheinlich hier nochmal eine Kopie der Daten.
+
         
         var parent: BarChartViewSwiftUI
         
@@ -54,33 +54,12 @@ struct BarChartViewSwiftUI:UIViewRepresentable {
         }
         
         
-        
-        func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-            
-          
-       
-            let dateStrig = parent.dateStrings[Int(value)]
-             let df = DateFormatter()
-             df.dateFormat = "yyyy-MM-dd"
-             let date = df.date(from: dateStrig)
-             df.dateFormat = "dd/MM"
-             if let date = date {
-             let weekday = Calendar.current.component(.weekday, from: date)
-             let weekdayShort = df.shortWeekdaySymbols[weekday - 1]
-             let dateString = df.string(from: date)
-             let string = "\(weekdayShort)\n\(dateString)"
-             return string
-             } else {
-             return "err"
-             }
-            
-        }
     }
     
     func updateUIView(_ uiView: BarChartView, context: Context) {
         
         uiView.data = self.chartData
-        print("updateUIView")
+
     }
 }
 
@@ -100,7 +79,7 @@ class TimestampAxisValueFormatter: NSObject, IAxisValueFormatter {
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
         print("Converting \(value) ...")
         let df = DateFormatter()
-         let date = Date(timeIntervalSince1970: value)
+         let date = Date(timeIntervalSince1970: value*86400)
          df.dateFormat = "dd/MM"
          let weekday = Calendar.current.component(.weekday, from: date)
          let weekdayShort = df.shortWeekdaySymbols[weekday - 1]
@@ -108,4 +87,31 @@ class TimestampAxisValueFormatter: NSObject, IAxisValueFormatter {
          let string = "\(weekdayShort)\n\(dateString)"
          return string
     }
+}
+
+class ChartXAxisFormatter: NSObject {
+    fileprivate var dateFormatter: DateFormatter?
+    fileprivate var referenceTimeInterval: TimeInterval?
+
+    convenience init(referenceTimeInterval: TimeInterval, dateFormatter: DateFormatter) {
+        self.init()
+        self.referenceTimeInterval = referenceTimeInterval
+        self.dateFormatter = dateFormatter
+    }
+}
+
+
+extension ChartXAxisFormatter: IAxisValueFormatter {
+
+    func stringForValue(_ value: Double, axis: AxisBase?) -> String {
+        guard let dateFormatter = dateFormatter,
+        let referenceTimeInterval = referenceTimeInterval
+        else {
+            return ""
+        }
+
+        let date = Date(timeIntervalSince1970: value * 3600 * 24 + referenceTimeInterval)
+        return dateFormatter.string(from: date)
+    }
+
 }

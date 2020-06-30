@@ -48,6 +48,7 @@
 /* Begin PBXFileReference section */
 		078CFC625317AE93DA523BDA /* Pods_ChartsRepresentable.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ChartsRepresentable.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5368B0E19F565D28BC1587F5 /* Pods-ChartsRepresentableTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ChartsRepresentableTests.debug.xcconfig"; path = "Target Support Files/Pods-ChartsRepresentableTests/Pods-ChartsRepresentableTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6E405A27249F60700027FAF9 /* ChartsRepresentable.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChartsRepresentable.entitlements; sourceTree = "<group>"; };
 		6E839507249E67030007FF71 /* LargeValueFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeValueFormatter.swift; sourceTree = "<group>"; };
 		6E839509249E693C0007FF71 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
 		6ED61EA72499D9EC000D6E51 /* ChartsRepresentable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChartsRepresentable.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -142,6 +143,7 @@
 		6ED61EA92499D9EC000D6E51 /* ChartsRepresentable */ = {
 			isa = PBXGroup;
 			children = (
+				6E405A27249F60700027FAF9 /* ChartsRepresentable.entitlements */,
 				6ED6201F2499E487000D6E51 /* App */,
 				6ED61EAE2499D9EC000D6E51 /* ContentView.swift */,
 				6E839509249E693C0007FF71 /* Stat.swift */,
@@ -631,6 +633,7 @@
 			baseConfigurationReference = 754E4FE2687DD889FC32AED3 /* Pods-ChartsRepresentable.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ChartsRepresentable/ChartsRepresentable.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ChartsRepresentable/Preview Content\"";
 				DEVELOPMENT_TEAM = DS36C95935;
@@ -643,6 +646,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = madetk.com.ChartsRepresentable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -653,6 +657,7 @@
 			baseConfigurationReference = E3F3A3435760759654D65679 /* Pods-ChartsRepresentable.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = ChartsRepresentable/ChartsRepresentable.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ChartsRepresentable/Preview Content\"";
 				DEVELOPMENT_TEAM = DS36C95935;
@@ -665,6 +670,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = madetk.com.ChartsRepresentable;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

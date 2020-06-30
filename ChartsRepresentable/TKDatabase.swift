@@ -70,6 +70,15 @@ class FirebaseConfig {
         options.storageBucket = "catscha-64e2b.appspot.com"
         FirebaseApp.configure(name: "catscha", options: options)
     }
+    
+    class func configureChartsDatabase() {
+        
+        let options = FirebaseOptions(googleAppID: "1:413965443702:ios:8f4c412c0575f9d861b557", gcmSenderID: "413965443702")
+        options.apiKey = "AIzaSyCN6a_YIDm1Pu8aC9Nr3kmTfLER8MMxo4M"
+        options.googleAppID = "1:413965443702:ios:8f4c412c0575f9d861b557"
+        options.databaseURL = "https://charts-aa628.firebaseio.com"
+        FirebaseApp.configure(name: "charts", options: options)
+    }
 }
 
 class TKDatabase {
@@ -95,6 +104,9 @@ class TKDatabase {
     }
     class func todo() -> Database {
         return Database.database(app: FirebaseApp.app(name: "todo")!)
+    }
+    class func charts() -> Database {
+        return Database.database(app: FirebaseApp.app(name: "charts")!)
     }
     
     class func autolikeEngine02Queue() -> DatabaseReference {

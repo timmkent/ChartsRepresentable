@@ -11,7 +11,13 @@ import FirebaseDatabase
 import SwiftUI
 import Charts
 
-// 
+// Big Data Migration
+// Make Time selecteable
+// Rating, ertc....
+// Make special Pages to compare interesting App Data
+// Make Bump Appear in SearchAds
+// Compare ITC / Firebase Data
+
 
 // Schritt 1: Hole dir die Impressions, Installs seit 1.1.20
 // Schritt X: In /userstats/ speichern, wenn user APNS erlaubt hat. Ich moechte pro Tag wissen, wieviele User erlaubt haben. Eigentlich waere es moeglich:
@@ -27,56 +33,14 @@ class ChartDataService:ObservableObject {
   //  @ObservedObject var test = ""
     // Generate Example Data
     
-    static func generateChartData() -> BarChartData {
-         
-         
-               
-               let start = 1592647740
-               // i ist einfach nur ein counter, der von start an hoch zaehlt.
-               let yVals = (start..<start+20+1).map { (i) -> BarChartDataEntry in
-                
-                   let mult = 5 + 1
-                   let val = Double(arc4random_uniform(10))
-                   return BarChartDataEntry(x: Double(i), y: val)
-               }
-        
-               /*
-               var set1: BarChartDataSet! = nil
-               if let set = chartView.data?.dataSets.first as? BarChartDataSet {
-                   set1 = set
-                   set1.replaceEntries(yVals)
-                   chartView.data?.notifyDataChanged()
-                   chartView.notifyDataSetChanged()
-               } else {
-                   set1 = BarChartDataSet(entries: yVals, label: "The year 2017")
-                   set1.colors = ChartColorTemplates.material()
-                   set1.drawValuesEnabled = false
-                   
-                   let data = BarChartData(dataSet: set1)
-                   data.setValueFont(UIFont(name: "HelveticaNeue-Light", size: 10)!)
-                   data.barWidth = 0.5 // MFE 0.9
-                   chartView.data = data
-               }
-        */
-               
-               let set1 = BarChartDataSet(entries: yVals, label: "The year 2017")
-                let data = BarChartData(dataSet: set1)
-                data.setValueFont(UIFont(name: "HelveticaNeue-Light", size: 10)!)
-                data.barWidth = 0.5 // MFE 0.9
-                return data
-               
 
     
-     }
-    
-    static func getImpressionsMB(completion:@escaping(_ barChartData:BarChartData)->Void) {
-        let startDate = "2020-06-01"
+    static func getTodoDatabaseStats(startDate: String, appshort:String, key:String, completion:@escaping(_ barChartData:BarChartData)->Void) {
         let endDate = Date().todayYMD
         let statsRef = TKDatabase.todo().reference(withPath: "stats")
         var todoDatabaseData = [TodoDatabaseData]()
         
-        var dataEntries: [BarChartDataEntry] = []
-        
+
         statsRef.queryOrderedByKey().queryStarting(atValue: startDate).queryEnding(atValue: endDate).observeSingleEvent(of: .value) { (snap) in
             
            print("Chart has found \(snap.childrenCount)")
@@ -84,40 +48,125 @@ class ChartDataService:ObservableObject {
             for snap in snap.children {
                 
                 if let snap = snap as? DataSnapshot {
-                    if let stat:Stat = try!snap.decoded() {
-                        let value:Double = stat.MB.itc_impressionsTotal ?? 0
-                        let todoDataValue = TodoDatabaseData(dateString: snap.key, value: value)
-                        todoDatabaseData.append(todoDataValue)
+                    let dateString = snap.key
+                    
+                    if let content = snap.value as? [String:AnyObject] {
+                        if let value = content[appshort] {
+                            if let value = value[key] as? Double {
+                                let todoDataValue = TodoDatabaseData(dateString: dateString, value: value)
+                                todoDatabaseData.append(todoDataValue)
+                            }
+                        }
+                    }
+
+                }
+            }
+            if todoDatabaseData.first == nil {
+                print(key)
+                abort()
+            }
+            print("We have r eceived todoData:\(todoDatabaseData.first!) (\(todoDatabaseData.count))")
+            
+            let chartData = createBarChartData(from: todoDatabaseData, label: key)
+            completion(chartData)
+        }
+        
+    }
+
+    static func getChartDatabaseStats(startDate: String, appshort:String, key:String, completion:@escaping(_ barChartData:BarChartData)->Void) {
+        let endDate = Date().todayYMD
+        let statsRef = TKDatabase.charts().reference().child("charts").child(appshort).child(key)
+        var todoDatabaseData = [TodoDatabaseData]()
+        print(statsRef)
+        
+
+        statsRef.queryOrderedByKey().queryStarting(atValue: "2020-01-01").observeSingleEvent(of: .value) { (snap) in
+            
+           print("Chart has found \(snap.childrenCount)")
+                
+            for snap in snap.children {
+                
+                if let snap = snap as? DataSnapshot {
+                    let dateString = snap.key
+                    
+                    if let content = snap.value as? [String:AnyObject] {
+                        if let value = content["value"] as? Double {
+                           let todoDataValue = TodoDatabaseData(dateString: dateString, value: value)
+                            todoDatabaseData.append(todoDataValue)
+                        }
                     }
                 }
             }
-            
-            
-            
-            for i in 0..<todoDatabaseData.count {
-                let dataEntry = BarChartDataEntry(x: Double(i), yValues:  [todoDatabaseData[i].value], data: "groupChart")
-                dataEntries.append(dataEntry)
+            if todoDatabaseData.first == nil {
+                print(key)
+                abort()
             }
+            print("We have r eceived todoData:\(todoDatabaseData.first!) (\(todoDatabaseData.count))")
             
-            let chartDataSet = BarChartDataSet(entries: dataEntries, label: "A")
-            let chartData = BarChartData(dataSet: chartDataSet)
-            
-            
-            
-
-            
+            let chartData = createBarChartData(from: todoDatabaseData, label: key)
+            completion(chartData)
         }
+    }
+    
+    // 1. calistenics
+    // 2. schreib caixa
+    // 3. hat mannfrau nohcmal geschrieben?
+    // 4. kontakte w/ Anwalt von jenny
+    // 5. mache die ranking ausdrucke
+    // 6. bringe caixa app ans laufen
+    // 7. bringe sabadell app ans laufen (PW reset?)
+    // 8. mache KQL
+    // 9. lege die Nutzer an
+    
+    static func getChartDatabaseStatsRanks(startDate: String, appshort:String, key:String, completion:@escaping(_ barChartData:BarChartData)->Void) {
+        let endDate = Date().todayYMD
+        let statsRef = TKDatabase.charts().reference().child("graphs/ranks").child(appshort).child(key)
+        var todoDatabaseData = [TodoDatabaseData]()
+        print(statsRef)
         
+
+        statsRef.queryOrderedByKey().queryStarting(atValue: "2020-01-01").observeSingleEvent(of: .value) { (snap) in
+            
+           print("Chart has found \(snap.childrenCount)")
+                
+            for snap in snap.children {
+                
+                if let snap = snap as? DataSnapshot {
+                    let dateString = snap.key
+                    
+                    if let content = snap.value as? [String:AnyObject] {
+                        if let value = content["rank"] as? String {
+                            let value = Double(value) ?? 0 
+                           let todoDataValue = TodoDatabaseData(dateString: dateString, value: Double(value))
+                            todoDatabaseData.append(todoDataValue)
+                        }
+                    }
+                }
+            }
+            if todoDatabaseData.first == nil {
+                print(key)
+                abort()
+            }
+            print("We have r eceived todoData:\(todoDatabaseData.first!) (\(todoDatabaseData.count))")
+            
+            let chartData = createBarChartData(from: todoDatabaseData, label: key)
+            completion(chartData)
+        }
     }
     
     static func getTestData(completion:@escaping(_ barChartData:BarChartData)->Void) {
         // Generate Test Data
         
-        let start = 1592647740
+        var vals = [Int]()
+        for i in 1...5 {
+            vals.append(1592647740+i*4)
+        }
+        
+    
         let count = 13
         let range:UInt32 = 50
         // i ist einfach nur ein counter, der von start an hoch zaehlt.
-        let yVals = (start..<start+count+1).map { (i) -> BarChartDataEntry in
+        let yVals = vals.map { (i) -> BarChartDataEntry in
             print(range)
             let mult = range + 1
             let val = Double(arc4random_uniform(mult))
@@ -136,11 +185,31 @@ class ChartDataService:ObservableObject {
     // dann mrtg daten verwenden
     // dann mrtg outfit imitieren
     // ca. 13.00 will ich F.
-    static func createBarChartData(from todoDatabaseData:[TodoDatabaseData]) ->  BarChartData {
+    static func createBarChartData(from todoDatabaseData:[TodoDatabaseData], label:String) ->  BarChartData {
         
         // 1. Todo data (yyyy-mm-dd => timestamp,value)
-        let barChartDataEntries = todoDatabaseData.map({return BarChartDataEntry(x: $0.timeInterval!, y: $0.value)})
-        let set1 = BarChartDataSet(entries: barChartDataEntries, label: "The year 2017")
+        var barChartDataEntries = [BarChartDataEntry]()
+        for entry in todoDatabaseData {
+       //     print(entry.timeInterval!, entry.value)
+            let barChatData = BarChartDataEntry(x: entry.timeInterval!/86400, y:entry.value)
+            print(barChatData)
+            barChartDataEntries.append(barChatData)
+        }
+        
+        
+//
+//        let barChartDataEntries = todoDatabaseData.map({
+//
+//            print($0.timeInterval, $0.value)
+//            return BarChartDataEntry(x: $0.timeInterval, y: $0.value)
+//
+//        })
+//
+//
+//
+//        print(barChartDataEntries.count)
+        
+        let set1 = BarChartDataSet(entries: barChartDataEntries, label: label)
         let barChartData = BarChartData(dataSet: set1)
         barChartData.setValueFont(UIFont(name: "HelveticaNeue-Light", size: 10)!)
         barChartData.barWidth = 0.5 // MFE 0.9

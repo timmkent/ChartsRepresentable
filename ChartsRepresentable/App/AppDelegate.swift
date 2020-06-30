@@ -23,6 +23,59 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseConfig.configureSwindaDatabase()
         FirebaseConfig.configureCatschaDatabase()
         FirebaseConfig.configureTodoDatabase()
+        FirebaseConfig.configureChartsDatabase()
+        
+        // Copy EVERYTHING to charts
+        /*
+        TKDatabase.todo().reference().child("stats").observeSingleEvent(of: .value) { (snap) in
+            for snap in snap.children {
+                if let snap = snap as? DataSnapshot {
+                    let dateString = snap.key
+         
+                    if let stat:StatConversion = try!snap.decoded() {
+
+                        func writeEntry(app:StatData?, name:String) {
+                            if app == nil { return }
+                            let ref = TKDatabase.charts().reference().child("charts").child(name)
+                            ref.child("eurlast30").child(dateString).updateChildValues(["value":app!.eurlast30])
+                            
+                            
+                            ref.child("itc_crashes").child(dateString).updateChildValues(["value":app!.itc_crashes])
+                            ref.child("itc_iaps").child(dateString).updateChildValues(["value":app!.itc_iaps])
+                            ref.child("itc_impressionsTotal").child(dateString).updateChildValues(["value":app!.itc_impressionsTotal])
+                            ref.child("iap").child(dateString).updateChildValues(["value":app!.iap])
+                            ref.child("iapp").child(dateString).updateChildValues(["value":app!.iapp])
+                            ref.child("saleseur").child(dateString).updateChildValues(["value":app!.saleseur])
+                            ref.child("fcm_invocations").child(dateString).updateChildValues(["value":app!.fcm_invocations])
+                            ref.child("fcm_success").child(dateString).updateChildValues(["value":app!.fcm_success])
+                            ref.child("fcmtoken_registered").child(dateString).updateChildValues(["value":app!.fcmtoken_registered])
+                            ref.child("profile_deletions").child(dateString).updateChildValues(["value":app!.profile_deletions])
+                            ref.child("deviceids").child(dateString).updateChildValues(["value":app!.deviceids])
+                            ref.child("deletionratio").child(dateString).updateChildValues(["value":app!.deletionratio])
+                            ref.child("uid_created").child(dateString).updateChildValues(["value":app!.uid_created])
+                            ref.child("uidratio").child(dateString).updateChildValues(["value":app!.uidratio])
+                            ref.child("profile_created").child(dateString).updateChildValues(["value":app!.profile_created])
+                            ref.child("profileratio").child(dateString).updateChildValues(["value":app!.profileratio])
+                            ref.child("iappratio").child(dateString).updateChildValues(["value":app!.iappratio])
+                            ref.child("eurlast30").child(dateString).updateChildValues(["value":app!.eurlast30])
+                            
+                        }
+                        
+                        writeEntry(app: stat.MB, name:"MB")
+                        writeEntry(app: stat.NB, name:"NB")
+                        writeEntry(app: stat.SW, name:"SW")
+                        writeEntry(app: stat.CA, name:"CA")
+          
+
+                        
+                        
+                    }
+
+                }
+            }
+        }
+        */
+        
         return true
     }
 
