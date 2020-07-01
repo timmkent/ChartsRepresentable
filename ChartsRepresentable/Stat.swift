@@ -14,6 +14,19 @@ struct StatData:Codable {
     var itc_crashes:Double?
     var itc_iaps:Double?
     var itc_impressionsTotal:Double?
+    
+    // new
+    var itc_pageViewCount:Double?
+    var itc_ratingCount:Double?
+    var itc_ratingFiveCount:Double?
+    var itc_ratingFourCount:Double?
+    var itc_ratingOneCount:Double?
+    var itc_ratingThreeCount:Double?
+    var itc_ratingTwoCount:Double?
+    var itc_sales:Double?
+    var itc_saleseur:Double?
+    var itc_units:Double?
+    
     var iap:Double?
     var iapp:Double?
     var saleseur:Double?

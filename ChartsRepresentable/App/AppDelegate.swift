@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseConfig.configureChartsDatabase()
         
         // Copy EVERYTHING to charts
-        /*
+        
         TKDatabase.todo().reference().child("stats").observeSingleEvent(of: .value) { (snap) in
             for snap in snap.children {
                 if let snap = snap as? DataSnapshot {
@@ -39,10 +39,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             let ref = TKDatabase.charts().reference().child("charts").child(name)
                             ref.child("eurlast30").child(dateString).updateChildValues(["value":app!.eurlast30])
                             
-                            
+                            // TODO: Das hier auf machen und fuer einen definierten Zeitraum die itcRatings nachtragenen.
                             ref.child("itc_crashes").child(dateString).updateChildValues(["value":app!.itc_crashes])
                             ref.child("itc_iaps").child(dateString).updateChildValues(["value":app!.itc_iaps])
                             ref.child("itc_impressionsTotal").child(dateString).updateChildValues(["value":app!.itc_impressionsTotal])
+                            
+                            
+                            
+                            // new
+                             ref.child("itc_pageViewCount").child(dateString).updateChildValues(["value":app!.itc_pageViewCount])
+                             ref.child("itc_ratingCount").child(dateString).updateChildValues(["value":app!.itc_ratingCount])
+                             ref.child("itc_ratingFiveCount").child(dateString).updateChildValues(["value":app!.itc_ratingFiveCount])
+                             ref.child("itc_ratingFourCount").child(dateString).updateChildValues(["value":app!.itc_ratingFourCount])
+                             ref.child("itc_ratingOneCount").child(dateString).updateChildValues(["value":app!.itc_ratingOneCount])
+                             ref.child("itc_ratingThreeCount").child(dateString).updateChildValues(["value":app!.itc_ratingThreeCount])
+                             ref.child("itc_ratingTwoCount").child(dateString).updateChildValues(["value":app!.itc_ratingTwoCount])
+                             ref.child("itc_sales").child(dateString).updateChildValues(["value":app!.itc_sales])
+                             ref.child("itc_saleseur").child(dateString).updateChildValues(["value":app!.itc_saleseur])
+                             ref.child("itc_units").child(dateString).updateChildValues(["value":app!.itc_units])
+                            
+                            
+                            
                             ref.child("iap").child(dateString).updateChildValues(["value":app!.iap])
                             ref.child("iapp").child(dateString).updateChildValues(["value":app!.iapp])
                             ref.child("saleseur").child(dateString).updateChildValues(["value":app!.saleseur])
@@ -74,7 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
-        */
+        
         
         return true
     }

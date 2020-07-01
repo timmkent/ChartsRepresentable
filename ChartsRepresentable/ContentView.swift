@@ -16,20 +16,7 @@ struct ContentView: View {
     
     
     
-    //   @State private var impressionsNB = BarChartData()
-    
-    // Mache das Protokoll (ohne Nachdenken, einfach die PreSexChecklist durchziehen)
-    // Dann soll er vorbei kommen und dich ficken und dann ist fertig.
-    // Dann machen die PostSexChecklist: War es schoen, was war schoen, hat was weh getan, hat
-    // PRE Checklist (die immer funktioniert, egal ob wir gerade g. haben oder nicht)
-    // 1) Spuelen bis 5x sauberes wasser kommt
-    // 2) 5x mit etwas penis grossem langsam rein und schnell raus
-    // eigentlich kann das doch gar nicht "nicht" gehen
-    // Nimm einen stricher, der dich regelmaessig, damit du die angst verlierst
-    // und es zur "sicheren" routine wird
-    // nimm leute per gr
-    // finde raus, was dir wirklich gefaellt (ohen alk und ohne dr)
-    // ohne drama ohne alles
+
     let startDate = "2020-06-01"
     let apps = ["MB","NB","SW","CA","WE"]
     let keys = ["itc_impressionsTotal","deviceids","app_exception","deletionratio","eurlast30","fcm_deleted","func_err","fcm_success","iap","iapp","in_app_purchase","itc_averageRating","itc_crashes","itc_iaps","itc_sales","itc_units","profile_created","profile_deletions","sa_impressions","sa_localSpend","sa_installs","uid_created","who_liked_me_vc_called"]
@@ -40,6 +27,9 @@ struct ContentView: View {
                     NavigationLink(app, destination: ListViewPerApp(app: app))
                     .navigationBarTitle(app)
                 }
+// TODO:
+                //                NavigationLink("Ratings MB", destination: RatingViewPerApp(app: "MB"))
+//                .navigationBarTitle(app)
             }
         }
         .navigationViewStyle(StackNavigationViewStyle())

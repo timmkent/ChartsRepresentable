@@ -10,6 +10,7 @@
 		1A6B7BC76D0628B8AD3D2AE2 /* Pods_ChartsRepresentable_ChartsRepresentableUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D5328A0AE66A9BD089D53753 /* Pods_ChartsRepresentable_ChartsRepresentableUITests.framework */; };
 		6E839508249E67030007FF71 /* LargeValueFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E839507249E67030007FF71 /* LargeValueFormatter.swift */; };
 		6E83950A249E693C0007FF71 /* Stat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E839509249E693C0007FF71 /* Stat.swift */; };
+		6E9EFE2B24AB9BCE00F318B5 /* RatingViewPerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E9EFE2A24AB9BCE00F318B5 /* RatingViewPerApp.swift */; };
 		6ED61EAB2499D9EC000D6E51 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED61EAA2499D9EC000D6E51 /* AppDelegate.swift */; };
 		6ED61EAD2499D9EC000D6E51 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED61EAC2499D9EC000D6E51 /* SceneDelegate.swift */; };
 		6ED61EAF2499D9EC000D6E51 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED61EAE2499D9EC000D6E51 /* ContentView.swift */; };
@@ -51,6 +52,7 @@
 		6E405A27249F60700027FAF9 /* ChartsRepresentable.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ChartsRepresentable.entitlements; sourceTree = "<group>"; };
 		6E839507249E67030007FF71 /* LargeValueFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LargeValueFormatter.swift; sourceTree = "<group>"; };
 		6E839509249E693C0007FF71 /* Stat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stat.swift; sourceTree = "<group>"; };
+		6E9EFE2A24AB9BCE00F318B5 /* RatingViewPerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingViewPerApp.swift; sourceTree = "<group>"; };
 		6ED61EA72499D9EC000D6E51 /* ChartsRepresentable.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChartsRepresentable.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6ED61EAA2499D9EC000D6E51 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6ED61EAC2499D9EC000D6E51 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				6E405A27249F60700027FAF9 /* ChartsRepresentable.entitlements */,
 				6ED6201F2499E487000D6E51 /* App */,
 				6ED61EAE2499D9EC000D6E51 /* ContentView.swift */,
+				6E9EFE2A24AB9BCE00F318B5 /* RatingViewPerApp.swift */,
 				6E839509249E693C0007FF71 /* Stat.swift */,
 				6ED620202499E53D000D6E51 /* Extensions */,
 				6ED6201D2499E459000D6E51 /* ChartDataService.swift */,
@@ -458,6 +461,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6ED6201A2499DC85000D6E51 /* Extension+Datasnapshot.swift in Sources */,
+				6E9EFE2B24AB9BCE00F318B5 /* RatingViewPerApp.swift in Sources */,
 				6ED620222499E5C0000D6E51 /* BarChartViewSwiftUI.swift in Sources */,
 				6ED61EAB2499D9EC000D6E51 /* AppDelegate.swift in Sources */,
 				6ED620182499DC7C000D6E51 /* Extensions.swift in Sources */,

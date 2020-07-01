@@ -108,6 +108,41 @@ class ChartDataService:ObservableObject {
         }
     }
     
+    
+    static func getRatings(startDate: String, appshort:String, key:String, completion:@escaping(_ barChartData:BarChartData)->Void) {
+        let endDate = Date().todayYMD
+        let statsRef = TKDatabase.charts().reference().child("charts").child(appshort).child(key)
+        var todoDatabaseData = [TodoDatabaseData]()
+        print(statsRef)
+        
+
+        statsRef.queryOrderedByKey().queryStarting(atValue: "2020-01-01").observeSingleEvent(of: .value) { (snap) in
+            
+           print("Chart has found \(snap.childrenCount)")
+                
+            for snap in snap.children {
+                
+                if let snap = snap as? DataSnapshot {
+                    let dateString = snap.key
+                    
+                    if let content = snap.value as? [String:AnyObject] {
+                        if let value = content["value"] as? Double {
+                           let todoDataValue = TodoDatabaseData(dateString: dateString, value: value)
+                            todoDatabaseData.append(todoDataValue)
+                        }
+                    }
+                }
+            }
+            if todoDatabaseData.first == nil {
+                print(key)
+                abort()
+            }
+            print("We have r eceived todoData:\(todoDatabaseData.first!) (\(todoDatabaseData.count))")
+            
+            let chartData = createBarChartData(from: todoDatabaseData, label: key)
+            completion(chartData)
+        }
+    }
     // 1. calistenics
     // 2. schreib caixa
     // 3. hat mannfrau nohcmal geschrieben?
