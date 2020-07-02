@@ -113,13 +113,12 @@ class ChartDataService:ObservableObject {
         let endDate = Date().todayYMD
         let statsRef = TKDatabase.charts().reference().child("charts").child(appshort).child(key)
         var todoDatabaseData = [TodoDatabaseData]()
-        print(statsRef)
-        
-
+       
         statsRef.queryOrderedByKey().queryStarting(atValue: "2020-01-01").observeSingleEvent(of: .value) { (snap) in
             
            print("Chart has found \(snap.childrenCount)")
                 
+            var valueBefore:Double? = nil
             for snap in snap.children {
                 
                 if let snap = snap as? DataSnapshot {
@@ -127,8 +126,16 @@ class ChartDataService:ObservableObject {
                     
                     if let content = snap.value as? [String:AnyObject] {
                         if let value = content["value"] as? Double {
-                           let todoDataValue = TodoDatabaseData(dateString: dateString, value: value)
-                            todoDatabaseData.append(todoDataValue)
+                            
+                            // wir wollen nicht die absoluten Werte darstellen, sondern die Veraenderung zum Vorwert.
+                            if valueBefore != nil {
+                                let newValue = value - valueBefore!
+                                let todoDataValue = TodoDatabaseData(dateString: dateString, value: newValue)
+                                todoDatabaseData.append(todoDataValue)
+                            }
+                            valueBefore = value
+                            
+                            
                         }
                     }
                 }
@@ -225,10 +232,10 @@ class ChartDataService:ObservableObject {
         // 1. Todo data (yyyy-mm-dd => timestamp,value)
         var barChartDataEntries = [BarChartDataEntry]()
         for entry in todoDatabaseData {
-       //     print(entry.timeInterval!, entry.value)
-            let barChatData = BarChartDataEntry(x: entry.timeInterval!/86400, y:entry.value)
-            print(barChatData)
-            barChartDataEntries.append(barChatData)
+            if let ti = entry.timeInterval {
+                let barChatData = BarChartDataEntry(x: ti/86400, y:entry.value)
+                barChartDataEntries.append(barChatData)
+            }
         }
         
         

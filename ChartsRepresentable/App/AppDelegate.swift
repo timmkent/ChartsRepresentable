@@ -26,7 +26,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseConfig.configureChartsDatabase()
         
         // Copy EVERYTHING to charts
-        
+        /*
         TKDatabase.todo().reference().child("stats").observeSingleEvent(of: .value) { (snap) in
             for snap in snap.children {
                 if let snap = snap as? DataSnapshot {
@@ -91,6 +91,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 }
             }
         }
+ */
         
         
         return true

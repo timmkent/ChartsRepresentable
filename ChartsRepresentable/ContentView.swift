@@ -83,7 +83,7 @@ struct BarChartWrapper: View {
 
             }
             
-            Text(appshort)
+            Text("APP:\(appshort) KEY:\(key)")
             Spacer()
             
         }

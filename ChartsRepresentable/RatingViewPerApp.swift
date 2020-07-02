@@ -11,6 +11,7 @@ import Charts
 
 struct RatingViewPerApp:View {
     var app:String
+    var key:String
     let labelsCount = 20
     @State var ratings = BarChartData()
     @State var startDate:String = "2020-01-01"
@@ -19,14 +20,14 @@ struct RatingViewPerApp:View {
             
             BarChartViewSwiftUI(chartData: self.$ratings, labelsCount: self.labelsCount)
                 .onAppear() {
-   
-//                    ChartDataService.getRatings(startDate: self.startDate, appshort: self.appshort, key: self.key) { barChartData  in
-//                        self.ratings = barChartData
+                    
+                    ChartDataService.getRatings(startDate: self.startDate, appshort: self.app, key: self.key) { barChartData  in
+                        self.ratings = barChartData
                         
-//                    }
+                    }
             }
             
-            Text(app)
+            Text("APP:\(app), KEY:\(key)")
             Spacer()
             
         }
