@@ -58,39 +58,6 @@ struct ContentView: View {
     }
         
 
-struct BarChartWrapper: View {
-    var startDate:String
-    var appshort:String
-    var key:String
-    @State var impressions = BarChartData()
-    let labelsCount = 20
-    var body: some View {
-        ZStack {
-            
-            BarChartViewSwiftUI(chartData: self.$impressions, labelsCount: self.labelsCount)
-                .onAppear() {
-                    if ["gay","gay_chat","gay_dating","gay_hookup"].contains(self.key) {
-                        ChartDataService.getChartDatabaseStatsRanks(startDate: self.startDate, appshort: self.appshort, key: self.key) { barChartData  in
-                            self.impressions = barChartData
-                            
-                        }
-                    } else {
-                        ChartDataService.getChartDatabaseStats(startDate: self.startDate, appshort: self.appshort, key: self.key) { barChartData  in
-                            self.impressions = barChartData
-                            
-                        }
-                    }
-
-            }
-            
-            Text("APP:\(appshort) KEY:\(key)")
-            Spacer()
-            
-        }
-
-    }
-}
-
 
 
 

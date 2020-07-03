@@ -16,8 +16,11 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 
-        let contentView = ContentView()
+       // let contentView = CombinedChartWrapper(startDate: "2020-01-01", appshort: "MB", key: "test")
 
+     //    let contentView = BarChartWrapper(startDate: "2020-01-01", appshort: "MB", key: "test")
+          let contentView = LineChartWrapper(startDate: "2020-01-01", appshort: "MB", key: "test")
+        
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = UIHostingController(rootView: contentView)
