@@ -227,9 +227,9 @@ class ChartDataService:ObservableObject {
     // dann mrtg daten verwenden
     // dann mrtg outfit imitieren
     // ca. 13.00 will ich F.
-    static func createBarChartData(from todoDatabaseData:[TodoDatabaseData], label:String) ->  BarChartData {
-        
-        // 1. Todo data (yyyy-mm-dd => timestamp,value)
+    
+    
+    static func convertToBarChartData(todoDatabaseData:[TodoDatabaseData]) -> [BarChartDataEntry] {
         var barChartDataEntries = [BarChartDataEntry]()
         for entry in todoDatabaseData {
             if let ti = entry.timeInterval {
@@ -237,6 +237,25 @@ class ChartDataService:ObservableObject {
                 barChartDataEntries.append(barChatData)
             }
         }
+        return barChartDataEntries
+    }
+    
+    static func convertToLineChartDataEntry(todoDatabaseData:[TodoDatabaseData]) -> [ChartDataEntry] {
+        var barChartDataEntries = [ChartDataEntry]()
+        for entry in todoDatabaseData {
+            if let ti = entry.timeInterval {
+                let barChatData = ChartDataEntry(x: ti/86400, y:entry.value)
+                barChartDataEntries.append(barChatData)
+            }
+        }
+        return barChartDataEntries
+    }
+    
+    static func createBarChartData(from todoDatabaseData:[TodoDatabaseData], label:String) ->  BarChartData {
+        
+        // 1. Todo data (yyyy-mm-dd => timestamp,value)
+        let barChartDataEntries = convertToBarChartData(todoDatabaseData: todoDatabaseData)
+
         
         
 //
@@ -363,6 +382,46 @@ class ChartDataService:ObservableObject {
                     
         }
     }
+    
+    /// This function results datesString/Values array that can be converted to barchartData, lineChartData, combineChartData, etc...
+    static func generateImpressionsExample(completion:@escaping(_ todoDatabaseData:[TodoDatabaseData])->Void) {
+        let exampleTuple = Generator.generateData(startDate: "2020-01-01", withRandomValuesFrom: 15000, to: 23000)
+        var todoDatabaseData = [TodoDatabaseData]()
+        for (dateString,value) in exampleTuple {
+            let todoDataValue = TodoDatabaseData(dateString: dateString, value: value)
+            todoDatabaseData.append(todoDataValue)
+        }
+        completion(todoDatabaseData)
+    }
+    
+    static func getRankings(startDate: String, appshort:String, keyword:String, completion:@escaping(_ todoDatabaseData:[TodoDatabaseData])->Void) {
+
+        let statsRef = TKDatabase.charts().reference().child("graphs/ranks").child(appshort).child(keyword)
+        var todoDatabaseData = [TodoDatabaseData]()
+   
+        
+
+        statsRef.queryOrderedByKey().queryStarting(atValue: "2020-01-01").observeSingleEvent(of: .value) { (snap) in
+            
+           print("Chart has found \(snap.childrenCount)")
+                
+            for snap in snap.children {
+                
+                if let snap = snap as? DataSnapshot {
+                    let dateString = snap.key
+                    
+                    if let content = snap.value as? [String:AnyObject] {
+                        if let value = content["rank"] as? String {
+                            let value = Double(value) ?? 0
+                           let todoDataValue = TodoDatabaseData(dateString: dateString, value: Double(value))
+                            todoDatabaseData.append(todoDataValue)
+                        }
+                    }
+                }
+            }
+            completion(todoDatabaseData)
+        }
+    }
 }
 
 // This data is in the format 2020-02-10 and Double and can convert to TimeInterval / Double
@@ -379,4 +438,5 @@ struct TodoDatabaseData {
         }
         return nil
     }
+
 }

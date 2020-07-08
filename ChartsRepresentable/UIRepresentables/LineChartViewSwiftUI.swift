@@ -18,17 +18,13 @@ struct LineChartViewSwiftUI:UIViewRepresentable {
         let bcxv = LineChartView(frame: CGRect(x: 100, y: 100, width: 100, height: 100))
         
         bcxv.data = chartData
-        
-        // Chart Configuration
-        // not applicable for line charts?
-        //bcxv.barData?.dataSets.first?.drawValuesEnabled = true
-        //bcxv.barData?.dataSets.first?.valueFormatter = LargeValueFormatter()
+
         
         bcxv.animate(yAxisDuration: 1)
         bcxv.xAxis.labelCount = labelsCount
         
         let xaxis = bcxv.xAxis
-        xaxis.valueFormatter = TimestampAxisValueFormatter()//ChartXAxisFormatter() //TimestampAxisValueFormatter()
+        xaxis.valueFormatter = TimestampAxisValueFormatter()
         xaxis.labelPosition = .bottom
         
         return bcxv

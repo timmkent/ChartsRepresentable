@@ -25,6 +25,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseConfig.configureTodoDatabase()
         FirebaseConfig.configureChartsDatabase()
         
+        // This will generate (2020-01-01, 2523.45) tuplet to be used as test data.
+        let vals = Generator.generateData(startDate: "2020-01-01", withRandomValuesFrom: 2000, to: 3000)
+        
+        
+        
         // Copy EVERYTHING to charts
         /*
         TKDatabase.todo().reference().child("stats").observeSingleEvent(of: .value) { (snap) in
@@ -94,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
  */
         
         
-        return true
+            return true
     }
 
     // MARK: UISceneSession Lifecycle

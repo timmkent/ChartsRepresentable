@@ -19,8 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
        // let contentView = CombinedChartWrapper(startDate: "2020-01-01", appshort: "MB", key: "test")
 
      //    let contentView = BarChartWrapper(startDate: "2020-01-01", appshort: "MB", key: "test")
-          let contentView = LineChartWrapper(startDate: "2020-01-01", appshort: "MB", key: "test")
         
+        let contentView = MenuView()
         if let windowScene = scene as? UIWindowScene {
             let window = UIWindow(windowScene: windowScene)
             window.rootViewController = UIHostingController(rootView: contentView)

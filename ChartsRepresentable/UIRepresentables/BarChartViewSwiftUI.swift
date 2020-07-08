@@ -77,7 +77,6 @@ func generateEpochExampleData() -> [Double] {
 
 class TimestampAxisValueFormatter: NSObject, IAxisValueFormatter {
     func stringForValue(_ value: Double, axis: AxisBase?) -> String {
-        print("Converting \(value) ...")
         let df = DateFormatter()
          let date = Date(timeIntervalSince1970: value*86400)
          df.dateFormat = "dd/MM"
